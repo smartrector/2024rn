@@ -8,21 +8,21 @@ import Task from './page/components/Task';
 
 const App = () => {
   const temData = [
-    {
-      id: '1',
-      text: 'react native',
-      completed: false,
-    },
-    {
-      id: '2',
-      text: 'mysql',
-      completed: true,
-    },
-    {
-      id: '3',
-      text: 'docker',
-      completed: false,
-    },
+    // {
+    //   id: '1',
+    //   text: 'react native',
+    //   completed: false,
+    // },
+    // {
+    //   id: '2',
+    //   text: 'mysql',
+    //   completed: true,
+    // },
+    // {
+    //   id: '3',
+    //   text: 'docker',
+    //   completed: false,
+    // },
   ];
   const [todos, setTodos] = useState(temData);
   const [todoText,setTodoText] = useState('')
@@ -57,6 +57,12 @@ const App = () => {
     )
   }
 
+  const updateTask = (itemId,newText)=>{
+   setTodos(
+    todos.map((item)=>item.id === itemId ? {...item, text:newText}: item)
+   )
+  }
+
 
   return (
     <View>
@@ -70,8 +76,17 @@ const App = () => {
         <Input onChangeText={onChangeText} todoText={todoText}/>
         <Button title="add todo" onPress={addTodo} />
         <ScrollView>
-          <Task data={todos} deleteTask={deleteTask} 
-          checkCompleted={checkCompleted}  />
+          {
+            [...todos].reverse().map((item,idx)=>{
+              return (
+                <Task deleteTask={deleteTask} 
+                checkCompleted={checkCompleted} 
+                updateTask={updateTask} key={idx} item={item} />
+              )
+            })
+          }
+         
+
         </ScrollView>
       </View>
     </View>
