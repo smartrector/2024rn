@@ -1,25 +1,33 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import IconButton from './page/components/IconButton';
 import Icons from './page/Icons';
 import Input from './page/components/Input';
+import {MouseButton} from 'react-native-gesture-handler';
+import Task from './page/components/Task';
 
 const App = () => {
-  const onChangeText = text => {
+  const temData = [
+    {id: '1', text: 'react native', completed: false},
+    {id: '2', text: 'mysql', completed: true},
+    {id: '3', text: 'docker', completed: false},
+  ];
+  const [todos, setTodos] = useState(temData);
+  const onChangeText = (text: string) => {
     console.log(text);
+  };
+  const addTodo = () => {
+    Alert.alert('add');
   };
 
   return (
     <View>
       <Text style={styles.title}>MY TODOLIST</Text>
-      <View style={{paddingHorizontal: 16, marginTop: 10}}>
+      <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <Input onChangeText={onChangeText} />
+        <Button title="add todo" onPress={addTodo} />
+        <Task data={todos} />
       </View>
-
-      {/* <IconButton icon={Icons.check} onPress={() => alert('check')} />
-      <IconButton icon={Icons.checked} onPress={() => alert('checked')} />
-      <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
-      <IconButton icon={Icons.delete} onPress={() => alert('delete')} /> */}
     </View>
   );
 };
