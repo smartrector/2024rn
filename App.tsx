@@ -8,32 +8,70 @@ import Task from './page/components/Task';
 
 const App = () => {
   const temData = [
-    {id: '1', text: 'react native', completed: false},
-    {id: '2', text: 'mysql', completed: true},
-    {id: '3', text: 'docker', completed: false},
+    {
+      id: '1',
+      text: 'react native',
+      completed: false,
+    },
+    {
+      id: '2',
+      text: 'mysql',
+      completed: true,
+    },
+    {
+      id: '3',
+      text: 'docker',
+      completed: false,
+    },
   ];
   const [todos, setTodos] = useState(temData);
+  const [todoText,setTodoText] = useState('')
+
+
   const onChangeText = (text: string) => {
-    console.log(text);
+    // console.log(text);
+    setTodoText(text)
   };
   const addTodo = () => {
-    Alert.alert('add');
+    if(todoText.trim()){
+      // Alert.alert('add');
+      const ID = Date.now().toString();
+      const newTaskObject = {id:ID,text:todoText,completed:false}
+      console.log(newTaskObject)
+      setTodos([...todos,newTaskObject])
+      setTodoText('')
+    }
+
   };
+  const deleteTask = (itemId:string)=>{
+    // alert(itemId)
+    setTodos(todos.filter((task)=>task.id != itemId))
+
+  }
+
+  const checkCompleted = (itemId:string)=>{
+    setTodos(
+      todos.map((item)=> 
+        item.id === itemId ? {...item,completed: !item.completed} : item
+      )
+    )
+  }
+
 
   return (
     <View>
       <Text style={styles.title}>MY TODOLIST</Text>
-      <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
-        <Input onChangeText={onChangeText} />
+      <View
+        style={{
+          paddingHorizontal: 16,
+          marginTop: 10,
+          gap: 10,
+        }}>
+        <Input onChangeText={onChangeText} todoText={todoText}/>
         <Button title="add todo" onPress={addTodo} />
         <ScrollView>
-          <Task data={todos} />
-          <Task data={todos} />
-          <Task data={todos} />
-          <Task data={todos} />
-          <Task data={todos} />
-          <Task data={todos} />
-          <Task data={todos} />
+          <Task data={todos} deleteTask={deleteTask} 
+          checkCompleted={checkCompleted}  />
         </ScrollView>
       </View>
     </View>

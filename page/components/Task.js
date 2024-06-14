@@ -3,16 +3,16 @@ import React from 'react';
 import IconButton from './IconButton';
 import Icons from '../Icons';
 
-const Task = ({data}) => {
+const Task = ({data,deleteTask,checkCompleted}) => {
   return (
     <>
-      {data.map((item, idx) => {
+      {[...data].reverse().map((item, idx) => {
         return (
           <View style={styles.container} key={idx}>
-            <IconButton icon={Icons.check} onPress={() => alert('check')} />
+            <IconButton icon={item.completed ? Icons.checked : Icons.check} onPress={() => checkCompleted(item.id)} />
             <Text style={{flex: 1}}>{item.text}</Text>
-            <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
-            <IconButton icon={Icons.delete} onPress={() => alert('delete')} />
+            {item.completed || <IconButton icon={Icons.edit} onPress={() => alert('edit')} />}
+            <IconButton icon={Icons.delete} onPress={() => deleteTask(item.id)} />
           </View>
         );
       })}
