@@ -24,6 +24,7 @@ export default Task;
 
 const styles = StyleSheet.create({
   container: {
+    marginBottom: 8,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#ccc',

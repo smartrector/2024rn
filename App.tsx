@@ -1,4 +1,4 @@
-import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import IconButton from './page/components/IconButton';
 import Icons from './page/Icons';
@@ -26,7 +26,15 @@ const App = () => {
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <Input onChangeText={onChangeText} />
         <Button title="add todo" onPress={addTodo} />
-        <Task data={todos} />
+        <ScrollView>
+          <Task data={todos} />
+          <Task data={todos} />
+          <Task data={todos} />
+          <Task data={todos} />
+          <Task data={todos} />
+          <Task data={todos} />
+          <Task data={todos} />
+        </ScrollView>
       </View>
     </View>
   );
