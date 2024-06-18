@@ -1,116 +1,61 @@
-import {Alert, Button, ScrollView, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import IconButton from './page/components/IconButton';
-import Icons from './page/Icons';
-import Input from './page/components/Input';
-import {MouseButton} from 'react-native-gesture-handler';
-import Task from './page/components/Task';
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import Home from './src/components/Home';
+import Search from './src/components/Search';
+import Activity from './src/components/Activity';
+import Profile from './src/components/Profile';
+import Status from './src/page/Status';
+
+import Ionic from 'react-native-vector-icons/Ionicons';
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const temData = [
-    // {
-    //   id: '1',
-    //   text: 'react native',
-    //   completed: false,
-    // },
-    // {
-    //   id: '2',
-    //   text: 'mysql',
-    //   completed: true,
-    // },
-    // {
-    //   id: '3',
-    //   text: 'docker',
-    //   completed: false,
-    // },
-  ];
-  const [todos, setTodos] = useState(temData);
-  const [todoText,setTodoText] = useState('')
-
-
-  const onChangeText = (text: string) => {
-    // console.log(text);
-    setTodoText(text)
-  };
-  const addTodo = () => {
-    if(todoText.trim()){
-      // Alert.alert('add');
-      const ID = Date.now().toString();
-      const newTaskObject = {id:ID,text:todoText,completed:false}
-      console.log(newTaskObject)
-      setTodos([...todos,newTaskObject])
-      setTodoText('')
-    }
-
-  };
-  const deleteTask = (itemId:string)=>{
-    // alert(itemId)
-    setTodos(todos.filter((task)=>task.id != itemId))
-
-  }
-
-  const checkCompleted = (itemId:string)=>{
-    setTodos(
-      todos.map((item)=> 
-        item.id === itemId ? {...item,completed: !item.completed} : item
-      )
-    )
-  }
-
-  const updateTask = (itemId,newText)=>{
-   setTodos(
-    todos.map((item)=>item.id === itemId ? {...item, text:newText}: item)
-   )
-  }
-
-
   return (
-    <View>
-      <Text style={styles.title}>MY TODOLIST</Text>
-      <View
-        style={{
-          paddingHorizontal: 16,
-          marginTop: 10,
-          gap: 10,
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
         }}>
-        <Input onChangeText={onChangeText} todoText={todoText}/>
-        <Button title="add todo" onPress={addTodo} />
-        <ScrollView>
-          {
-            [...todos].reverse().map((item,idx)=>{
-              return (
-                <Task deleteTask={deleteTask} 
-                checkCompleted={checkCompleted} 
-                updateTask={updateTask} key={idx} item={item} />
-              )
-            })
-          }
-         
+        <Stack.Screen name="Bottom" component={BottomTabScreen} />
+        <Stack.Screen name="Status" component={Status} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-        </ScrollView>
-      </View>
-    </View>
+const BottomTabScreen = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarHideOnKeyboard: true,
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 80,
+        },
+        tabBarIcon: ({focused, size, colour}) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home-sharp' : 'home-outline';
+          }
+
+          return <Ionic name={iconName} size={size} color={colour} />;
+        },
+      })}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Search" component={Search} />
+      <Tab.Screen name="Aativity" component={Activity} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 };
 
 export default App;
 
-const styles = StyleSheet.create({
-  title: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: 'skyblue',
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: '700',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
-});
+const styles = StyleSheet.create({});

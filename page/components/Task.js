@@ -8,14 +8,16 @@ const Task = ({item,deleteTask,checkCompleted,updateTask}) => {
   const [text,setText] = useState(item.text)
 
   const _onSubmit = () =>{
-    setIsEditing(false)
-    updateTask(item.id,text)
+    if(isEditing){
+      setIsEditing(false)
+      updateTask(item.id,text)
+    }
   }
 
   return isEditing ? (<>
     <TextInput 
     style={styles.input} 
-    onChangeText={setText}
+    onChangeText={text=>setText(text)}
     value={text}
     onSubmitEditing={_onSubmit}
     onBlur={_onSubmit}
