@@ -43,6 +43,12 @@ const BottomTabScreen = () => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home-sharp' : 'home-outline';
+          } else if (route.name === 'Search') {
+            iconName = focused ? 'search' : 'search-outline';
+          } else if (route.name === 'Activity') {
+            iconName = focused ? 'heart' : 'heart-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
           }
 
           return <Ionic name={iconName} size={size} color={colour} />;
@@ -50,7 +56,7 @@ const BottomTabScreen = () => {
       })}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Aativity" component={Activity} />
+      <Tab.Screen name="Activity" component={Activity} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
