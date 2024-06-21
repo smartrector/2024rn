@@ -8,7 +8,7 @@ import Post from '../page/Post';
 const Home = () => {
   return (
     <SafeAreaView>
-      <StatusBar backgroundColor="pink" barStyle="dark-content" />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <View
         style={{
           flexDirection: 'row',

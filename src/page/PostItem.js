@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -98,6 +98,41 @@ const PostItem = ({data}) => {
         </View>
       </View>
       {/* faver e */}
+      <View style={{paddingHorizontal: 15}}>
+        <Text>좋아요 {like ? data.likes + 1 : data.likes} 개</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 14, paddingVertical: 2}}>게시글 설명글 입니다.</Text>
+        <Text
+          style={{
+            opacity: 0.4,
+            paddingVertical: 2,
+            marginTop: 5,
+            marginBottom: 5,
+          }}>
+          댓글모두보기
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 16}}>
+            <Image
+              source={data.postPersonImage}
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 100,
+                backgroundColor: 'ornage',
+              }}
+            />
+            <TextInput placeholder="댓글달기...." style={{opacity: 0.5}} />
+          </View>
+          <View>
+            <Text style={{color: '#0095f6'}}>게시</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };

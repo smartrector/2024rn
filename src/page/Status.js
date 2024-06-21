@@ -1,5 +1,5 @@
-import {Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
+import {Animated, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 
 const Status = ({route, navigation}) => {
@@ -15,6 +15,26 @@ const Status = ({route, navigation}) => {
       clearTimeout(timer);
     };
   }, []);
+
+  // animate s
+
+  const progress = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: 5,
+      duration: 5000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
+
+  const progressAnimation = progress.interpolate({
+    inputRange: [0, 5],
+    outputRange: ['10%', '100%'],
+  });
+
+  // animate e
+
   return (
     <SafeAreaView
       style={{
@@ -22,6 +42,24 @@ const Status = ({route, navigation}) => {
         height: '100%',
       }}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
+      <View
+        style={{
+          height: 4,
+          width: '100%',
+          borderWidth: 1,
+          backgroundColor: 'gray',
+          position: 'absolute',
+          top: 0,
+          zIndex: 1,
+        }}>
+        <Animated.View
+          style={{
+            height: '100%',
+            backgroundColor: 'red',
+            width: progressAnimation,
+          }}
+        />
+      </View>
       <View
         style={{
           backgroundColor: 'gray',

@@ -5,7 +5,7 @@ import PostItem from './PostItem';
 const Post = () => {
   const postInfo = [
     {
-      postTitle: 'John',
+      postTitle: 'John1',
       postPersonImage: require('../../assets/images/userProfile.jpeg'),
       postImage: require('../../assets/images/post1.jpeg'),
       likes: 765,

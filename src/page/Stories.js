@@ -13,7 +13,7 @@ const Stories = () => {
     },
     {
       id: 0,
-      name: 'john',
+      name: 'john1',
       image: require('../../assets/images/profile1.jpeg'),
     },
     {
