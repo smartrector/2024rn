@@ -10,6 +10,8 @@ import Profile from './src/components/Profile';
 import Status from './src/page/Status';
 
 import Ionic from 'react-native-vector-icons/Ionicons';
+import EditProfile from './src/components/EditProfile';
+import FriendProfile from './src/components/FriendProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,6 +25,8 @@ const App = () => {
         }}>
         <Stack.Screen name="Bottom" component={BottomTabScreen} />
         <Stack.Screen name="Status" component={Status} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="FriendProfile" component={FriendProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
